@@ -12,7 +12,7 @@
         <th>editeur</th>
         <th>date edition</th>
         <th>prix</th>
-        
+        <th>catégorie</th>
         <th colspan="3">Action</th>
         
     </tr>
@@ -23,9 +23,10 @@
         <td>{{livre.editeur}}</td>
         <td>{{livre.dateEdition| date('d-m-Y')}}</td>
         <td>{{livre.prix}}</td>
-        <td><a href="#" class="btn btn-primary btm-sm">voir plus .......</a></td>
-        <td><a href="#" class="btn btn-danger btm-sm">supprimer</a></td>
-        <td><a href="#" class="btn btn-sucss btm-sm">editer</a></td>
+        <td>{{livre.categorie.libelle}}</td>
+        <td><a href="{{url('app_admin_livres_show',{'id':livre.id})}}" class="btn btn-primary btm-sm">voir plus .......</a></td>
+        <td><a href="{{url('app_admin_livres_delete',{'id':livre.id})}}" class="btn btn-danger btm-sm">supprimer</a></td>
+        <td><a href="{{url('app_admin_livres_update',{'id':livre.id})}}" class="btn btn-sucss btm-sm">editer</a></td>
     </tr>
         
     {% endfor %}
