@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Loader\Configurator\form;
 
-#[IsGranted('ROLE_ADMIN')]    
+  
 class LivresController extends AbstractController
 {
     #[Route('/admin/livres', name: 'app_admin_livres')]
@@ -33,6 +33,15 @@ class LivresController extends AbstractController
         //ParamConverter
         return $this->render('livres/show.html.twig', [
             'livre' =>$livre,
+        ]);
+    }
+    #[Route('/profile/livres', name: 'app_admin_livres_client')]
+    public function afficheClient(LivresRepository $res): Response
+    {
+        //afficher pour client 
+        $livres=$res->findAll();
+        return $this->render('affiche_livre/index.html.twig', [
+            'livres' =>$livres,
         ]);
     }
     #[Route('/admin/livres/update/{id}', name: 'app_admin_livres_update')]
