@@ -4,30 +4,27 @@
 
 {% block body %}
 <div class="container mt-5">
-        <h1 class="mb-4">Liste des Livres</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for livre in livres %}
-            <div class="col">
-                <div class="card h-100">
-                    <img src="{{ livre.image }}" class="card-img-top" alt="Image de livre">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ livre.titre }}</h2>
-                        <h class="card-text">Auteur: {{ livre.auteur }}</p>
-                        <h4 class="card-text">Prix: <span class="prix">{{ livre.prix }}</span> d</h2>
-                        {% if livre.qte >0 %}
-                        <p class="card_text">En stock</p>
-                        {% elseif livre.qte >10%}
-                         <p class="card-text">Quantité limitée</p> {# Afficher un message pour une quantité limitée #}
+    <h1 class="mb-4">Liste des Livres</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for livre in livres %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ livre.image }}" class="card-img-top book-image" alt="Image de livre">
+                <div class="card-body">
+                    <h3 class="card-title">{{ livre.titre }}</h3>
+                    <p class="card-text">Auteur: {{ livre.auteur }}</p>
+                    <h4 class="card-text">Prix: <span class="prix">{{ livre.prix }}</span> d</h4>
+                    {% if livre.qte > 0 %}
+                    <p class="card_text">En stock</p>
+                    {% elseif livre.qte > 10 %}
+                    <p class="card-text">Quantité limitée</p> {# Afficher un message pour une quantité limitée #}
                     {% else %}
                     <p class="card-text">Rupture de stock</p>
                     {% endif %}
-                    
-                    </div>
-
-
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}
