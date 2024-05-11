@@ -52,9 +52,13 @@ class Livres
     #[ORM\ManyToMany(targetEntity: Commande::class, mappedBy: 'livres')]
     private Collection $commandes;
 
+    #[ORM\OneToMany(targetEntity: ClientLivre::class, mappedBy: 'livres')]
+    private Collection $idlivre;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->idlivre = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,6 +220,36 @@ class Livres
     {
         if ($this->commandes->removeElement($commande)) {
             $commande->removeLivre($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ClientLivre>
+     */
+    public function getIdlivre(): Collection
+    {
+        return $this->idlivre;
+    }
+
+    public function addIdlivre(ClientLivre $idlivre): static
+    {
+        if (!$this->idlivre->contains($idlivre)) {
+            $this->idlivre->add($idlivre);
+            $idlivre->setLivres($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdlivre(ClientLivre $idlivre): static
+    {
+        if ($this->idlivre->removeElement($idlivre)) {
+            // set the owning side to null (unless already changed)
+            if ($idlivre->getLivres() === $this) {
+                $idlivre->setLivres(null);
+            }
         }
 
         return $this;
