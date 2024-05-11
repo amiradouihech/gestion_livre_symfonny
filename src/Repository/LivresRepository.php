@@ -59,6 +59,14 @@ class LivresRepository extends ServiceEntityRepository
            ->getResult()
       ;
   }
+  public function search($query)
+{
+    return $this->createQueryBuilder('l')
+        ->andWhere('l.titre LIKE :query OR l.auteur LIKE :query')
+        ->setParameter('query', '%'.$query.'%')
+        ->getQuery()
+        ->getResult();
+}
   public function findOneBySomeField($value): ?Livres
       {
          return $this->createQueryBuilder('l')

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}nos livre!{% endblock %}
+
+{% block body %}
+<h1>Liste des livres </h1>
+<table class="table">
+<table class="table">
+    <tr>
+        <th>id</th>
+        <th>date_commande</th>
+        <th>etat</th>
+        <th>adresse_livraison</th>
+        <th>total</th>
+        <th>mode_paiement</th>
+        <th>frais_livrasion</th>
+        <th>remis</th>
+        <th>note</th>
+        <th>numero_tracking</th>
+        <th>transporteur</th>
+        <th>date_livraison</th>
+        <th>adresse_facturation</th>
+        <th>email</th>
+        <th>telephone</th>
+        <th colspan="3">Action</th>
+        
+    </tr>
+    {% for livre in livres %}
+    <tr>
+        <td>{{livre.titre}}</td>
+        <td>{{livre.isbn}}</td>
+        <td>{{livre.editeur}}</td>
+        <td>{{livre.dateEdition| date('d-m-Y')}}</td>
+        <td>{{livre.prix}}</td>
+        <td>{{livre.categorie.libelle}}</td>
+        <td><a href="{{url('app_admin_livres_show',{'id':livre.id})}}" class="btn btn-primary btm-sm">voir plus .......</a></td>
+        <td><a href="{{url('app_admin_livres_delete',{'id':livre.id})}}" class="btn btn-danger btm-sm">supprimer</a></td>
+        <td><a href="{{url('app_admin_livres_update',{'id':livre.id})}}" class="btn btn-sucss btm-sm">editer</a></td>
+    </tr>
+        
+    {% endfor %}
+</table>
+{% endblock %}

@@ -16,6 +16,28 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\form;
   
 class LivresController extends AbstractController
 {
+    
+#[Route('/profile/livres/search', name: 'app_profile_livres_search', methods: ['GET'])]
+
+    public function search(Request $request, LivresRepository $livresRepository): Response
+    {
+        $query = $request->query->get('query');
+        $livres = $livresRepository->search($query);
+        $page = $request->query->getInt('page', 1); // Numéro de page par défaut
+        $limit = 10; // Nombre d'éléments par page
+        $offset = ($page - 1) * $limit;
+        $totalLivres = count($livres);
+        $totalPages = ceil($totalLivres / $limit);
+        $livresPage = array_slice($livres, $offset, $limit);
+    
+        // Render the same template with search results
+        return $this->render('affiche_livre/index.html.twig', [
+            'livres' => $livres,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+        ]);
+    }
+
     #[Route('/admin/livres', name: 'app_admin_livres')]
     
     public function index(LivresRepository $res): Response
@@ -36,12 +58,32 @@ class LivresController extends AbstractController
         ]);
     }
     #[Route('/profile/livres', name: 'app_admin_livres_client')]
-    public function afficheClient(LivresRepository $res): Response
+    public function afficheClient(LivresRepository $res,Request $request): Response
+    {
+        $livres = $res->findAll();
+
+        // Paginer les résultats
+        $page = $request->query->getInt('page', 1); // Numéro de page par défaut
+        $limit = 10; // Nombre d'éléments par page
+        $offset = ($page - 1) * $limit;
+        $totalLivres = count($livres);
+        $totalPages = ceil($totalLivres / $limit);
+        $livresPage = array_slice($livres, $offset, $limit);
+
+        return $this->render('affiche_livre/index.html.twig', [
+            'livres' => $livresPage,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+        ]);
+    
+    }
+    #[Route('/profile/livres/{id<\d+>}', name: 'livre_details')]
+    public function afficheClientdetaille(Livres $livre): Response
     {
         //afficher pour client 
-        $livres=$res->findAll();
-        return $this->render('affiche_livre/index.html.twig', [
-            'livres' =>$livres,
+       
+        return $this->render('affiche_livre/detaille.html.twig', [
+            'livre' =>$livre,
         ]);
     }
     #[Route('/admin/livres/update/{id}', name: 'app_admin_livres_update')]
