@@ -82,7 +82,7 @@
                 </div>
                 <div class="card-footer">
                     <a href="{{ path('livre_details', { 'id': livre.id }) }}" class="btn btn-primary btn-animated">Détails</a>
-                    <img src="https://www.kalys-designstore.com/wp-content/uploads/2018/07/K135-2.jpg" alt="Ajouter au panier" class="cart-icon ml-2">
+                    <a href="{{ path('app_paniger_add', { 'id': livre.id }) }}"><img src="https://www.kalys-designstore.com/wp-content/uploads/2018/07/K135-2.jpg" alt="Ajouter au panier" class="cart-icon ml-2"></a>
                 </div>
             </div>
         </div>
