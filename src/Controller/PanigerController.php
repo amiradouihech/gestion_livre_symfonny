@@ -96,7 +96,7 @@ public function checkout(Request $request, SessionInterface $session, LivresRepo
     }
 
     $order = new Order();
-    $form = $this->createForm(OrderType::class, $order);
+    $form = $this->createForm(OrderType::class, $order); // Ensure OrderType is correctly referenced
 
     $form->handleRequest($request);
 
@@ -129,7 +129,12 @@ public function checkout(Request $request, SessionInterface $session, LivresRepo
         // Clear the cart
         $session->remove('panier');
 
-        return $this->redirectToRoute('app_panier');
+        return $this->redirectToRoute('app_paniger');
     }
+
+    return $this->render('paniger/checkout.html.twig', [
+        'form' => $form->createView(),
+    ]);
 }
+
 }

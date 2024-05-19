@@ -27,15 +27,9 @@ class Order
     private $total;
 
     public function __construct(
-        string $customerName,
-        string $customerEmail,
-        string $customerAddress,
-        float $total
+        
     ) {
-        $this->customerName = $customerName;
-        $this->customerEmail = $customerEmail;
-        $this->customerAddress = $customerAddress;
-        $this->total = $total;
+  
     }
 
     // Getter pour l'ID
